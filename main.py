@@ -7,7 +7,7 @@ import pandas as pd
 style.use('ggplot')
 
 class K_Means:
-	def __init__(self, k =3, max_iterations = 100):
+	def __init__(self, k =3, max_iterations = 10):
 		self.k = k
 		self.centroids = {0: np.array([3.0, 3.0]), 1: np.array([6.0, 2.0]), 2: np.array([8.0,  5.0])}
 		self.max_iterations = max_iterations
@@ -46,7 +46,8 @@ class K_Means:
 
 def main():
 	
-	df = pd.read_csv(r"kmdata1.txt", delim_whitespace=True)
+	df = pd.read_table(r"kmdata1.txt", delim_whitespace=True, names=['one', 'two'])
+	print(df)
 	#df = df[["one", "two"]]
 	dataset = df.astype(float).values.tolist()
 
