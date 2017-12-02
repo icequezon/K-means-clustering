@@ -7,18 +7,12 @@ import pandas as pd
 style.use('ggplot')
 
 class K_Means:
-	def __init__(self, k =3, max_iterations = 10):
+	def __init__(self, k =3, max_iterations = 100):
 		self.k = k
-		self.tolerance = 0.0001
+		self.centroids = {0: np.array([3.0, 3.0]), 1: np.array([6.0, 2.0]), 2: np.array([8.0,  5.0])}
 		self.max_iterations = max_iterations
 
 	def fit(self, data):
-
-		self.centroids = {}
-
-		#initialize the centroids, the first 'k' elements in the dataset will be our initial centroids
-		for i in range(self.k):
-			self.centroids[i] = data[i]
 
 		#begin iterations
 		for i in range(self.max_iterations):
@@ -44,13 +38,6 @@ class K_Means:
 
 				original_centroid = previous[centroid]
 				curr = self.centroids[centroid]
-
-				if np.sum((curr - original_centroid)/original_centroid * 100.0) > self.tolerance:
-					isOptimal = False
-
-			#break out of the main loop if the results are optimal, ie. the centroids don't change their positions much(more than our tolerance)
-			if isOptimal:
-				break
 
 	def pred(self, data):
 		distances = [np.linalg.norm(data - self.centroids[centroid]) for centroid in self.centroids]
